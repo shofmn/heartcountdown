@@ -1,7 +1,7 @@
 # Heart Countdown
 Everybody who has a long distance relationship knows the situation: Seeing each other for a couple of weeks, and then living apart for weeks, if not months. But if you found **the one** you know it's worth the wait.
 
-To look forward to the moment the two of you see each other again, feel free to use this little page that shows a countdown in realtime. Behind the countdown there is a heart that has adjustable colors.
+To look forward to the moment the two of you see each other again, feel free to use this little page that shows a countdown in realtime. Behind the countdown there is a WebGL heart that has adjustable colors.
 
 ![Heart Countdown Screenshot](https://cloud.githubusercontent.com/assets/2188617/15620206/3061a9d2-2459-11e6-8317-0ea2eb852f7e.png)
 
