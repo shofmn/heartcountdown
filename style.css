@@ -1,7 +1,3 @@
-@font-face {
-  font-family: visitor2;
-  src: url(visitor2.ttf);
-}
 body
 {
 	margin: 0;
@@ -20,7 +16,7 @@ body
 {
 	position: absolute;
 	top: 30%;
-  left: 0;
+    left: 0;
 	right: 5%;
 	font-family: 'Lobster', cursive;
 	color: white;
@@ -29,10 +25,10 @@ body
 	text-align: center;
 }
 #countdown {
-  position: absolute;
+    position: absolute;
 	bottom: 20%;
 	left: 0;
-  right: 5%;
+    right: 5%;
 	font-family: 'Lobster', cursive;
 	color: white;
 	font-size: 3em;
