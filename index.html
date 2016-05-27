@@ -1,0 +1,114 @@
+<html>
+<head>
+  <title>John visits Jane</title>
+  <meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+  <link rel="stylesheet" type="text/css" href="style.css">
+  <link href='https://fonts.googleapis.com/css?family=Lobster' rel='stylesheet' type='text/css'>
+
+  <script type="text/javascript" src="three.min.js"></script>
+  <script type="text/javascript" src="heartMatrix.js"></script>
+</head>
+<body>
+  <div id="header">John<br />visits<br />Jane</div>
+  <div id="countdown">0:00:00:00</div>
+  <script type="text/javascript">
+
+    var scena, camera, renderer, cube, cubes, clock, lightPoint, colors;
+
+    cubeColors = [0xff0033, 0xff0000, 0xff3300, 0x991100, 0xff2244, 0xff3311];
+    countDownDate = new Date(2016, 07, 12, 10, 0, 0, 0); // year, month-1, day, hour, minute, second, millisecond
+
+    function init() {
+      scene = new THREE.Scene();
+      camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+      renderer = new THREE.WebGLRenderer();
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      document.body.appendChild(renderer.domElement);
+
+      camera.position.z = 20;
+      clock = new THREE.Clock();
+    }
+
+    function buildScene() {
+      var geometry, material, cubeColor;
+      cubes = new Array();
+
+      for (i = 0; i < heartMatrix.length; i++) {
+        cubeColor = cubeColors[Math.floor(Math.random() * cubeColors.length)];
+        geometry = new THREE.BoxGeometry(1, 1, 1);
+        material = new THREE.MeshLambertMaterial({color: cubeColor});
+        cube = new THREE.Mesh(geometry, material);
+        cube.position.y = 1.1 * heartMatrix[i][1];
+        cube.position.x = 1.1 * heartMatrix[i][0] + 0.5;
+        cubes.push(cube);
+        scene.add(cubes[cubes.length - 1]);
+      }
+
+      lightPoint = new THREE.PointLight(0xFFFFFF);
+      lightPoint.position.z = 21;
+      scene.add(lightPoint);
+    }
+
+    function render() {
+    	requestAnimationFrame(render);
+
+      camera.position.x = 0.01 * Math.sin(clock.getElapsedTime()) + 10;
+      camera.position.y = 0.01 * Math.cos(clock.getElapsedTime()) - 5;
+      camera.rotation.x = -0.01 * Math.sin(clock.getElapsedTime()) + 0.2;
+      camera.rotation.y = -0.01 * Math.cos(clock.getElapsedTime()) + 0.4;
+
+      lightPoint.position.x = 5 * Math.sin(clock.getElapsedTime()) + 10;
+      lightPoint.position.y = 5 * Math.sin(clock.getElapsedTime()) + 10;
+      lightPoint.position.z = 2 * Math.sin(clock.getElapsedTime()) + 15;
+
+    	renderer.render(scene, camera);
+    }
+
+    function getCountdown() {
+      // Returns the countdown of a given date in the future
+      var dateNow = new Date();
+      var dateFuture = countDownDate;
+      var text = "";
+      var timeOver = false;
+      var countdown = dateFuture.getTime() - dateNow.getTime();
+
+      // Create date or text after countdown finished
+      if(countdown > 0) {
+        countdown = Math.floor(countdown / 1000);
+        var days = Math.floor(countdown / 86400); // days
+        countdown = countdown % 86400;
+        var hours = Math.floor(countdown / 3600); // hours
+        countdown = countdown % 3600;
+        var minutes = Math.floor(countdown / 60); // minutes
+        countdown = countdown % 60;
+        var seconds = Math.floor(countdown); // seconds
+        text = days + " D " + hours + " H " + minutes + " M " + seconds + " S";
+      } else {
+        text = "0 D 0 H 0 M 0 S";
+        timeOver = true;
+      }
+
+      // Update countdown
+      var span = document.getElementById("countdown");
+      if(span.hasChildNodes()) {
+        span.firstChild.nodeValue = text;
+      } else {
+        var textNode = document.createTextNode(text);
+        span.appendChild(textNode);
+      }
+
+      if(timeOver) {
+        span.style.color = "red";
+      }
+
+      // Repeat (recursive)
+      setTimeout ("getCountdown()", 1000);
+    }
+    init();
+    buildScene();
+    render();
+    getCountdown();
+  </script>
+</body>
+</html>
